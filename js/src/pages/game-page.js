@@ -1,4 +1,6 @@
 import scene from '../render/scene'
+import Cuboid from "../block/cuboid";
+import Cylinder from "../block/cylinder";
 
 export default class GamePage {
   constructor(callbacks) {
@@ -8,6 +10,10 @@ export default class GamePage {
   init() {
     this.scene = scene
     this.scene.init()
+    const cuboid = new Cuboid(-15, 0, 0)
+    this.scene.instance.add(cuboid.instance)
+    const cylinder = new Cylinder(20, 0, 0)
+    this.scene.instance.add(cylinder.instance)
     this.render()
   }
   render() {
