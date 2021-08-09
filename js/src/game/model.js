@@ -1,0 +1,7 @@
+
+class GameModel {
+  constructor(props) {
+
+  }
+
+}
