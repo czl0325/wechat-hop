@@ -1,4 +1,5 @@
 import camera from "./camera";
+import light from "./light";
 
 class Scene {
   constructor() {
@@ -12,9 +13,14 @@ class Scene {
     })
     this.camera = camera
     this.camera.init()
+    this.light = light
+    this.light.init()
     this.instance.add(this.camera.instance)
     this.axesHelper = new THREE.AxesHelper( 100 )
     this.instance.add(this.axesHelper)
+    for (let lightType in this.light) {
+      this.instance.add(this.light[lightType])
+    }
   }
   render() {
     this.renderer.render(this.instance, this.camera.instance)

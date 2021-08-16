@@ -5,7 +5,7 @@ export default class Cylinder extends BaseBlock {
     super('cuboid');
     const size = width || this.width
     const geometry = new THREE.CylinderGeometry(size/2, size/2, this.height, 320)
-    const material = new THREE.MeshBasicMaterial({
+    const material = new THREE.MeshPhongMaterial({
       color: 0xff0000
     })
     this.instance = new THREE.Mesh(geometry, material)
