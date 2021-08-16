@@ -18,8 +18,8 @@ class Scene {
     this.instance.add(this.camera.instance)
     this.axesHelper = new THREE.AxesHelper( 100 )
     this.instance.add(this.axesHelper)
-    for (let lightType in this.light) {
-      this.instance.add(this.light[lightType])
+    for (let lightType in this.light.instance) {
+      this.instance.add(this.light.instance[lightType])
     }
   }
   render() {
