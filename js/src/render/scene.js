@@ -12,6 +12,8 @@ class Scene {
       antialias: true,
       preserveDrawingBuffer: true
     })
+    this.renderer.shadowMap.enabled = true
+    this.renderer.shadowMap.type = THREE.PCFShadowMap
     this.camera = camera
     this.camera.init()
     this.light = light

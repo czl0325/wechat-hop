@@ -10,6 +10,8 @@ export default class Cylinder extends BaseBlock {
     })
     this.instance = new THREE.Mesh(geometry, material)
     this.instance.name = 'block'
+    this.instance.receiveShadow = true
+    this.instance.castShadow = true
     this.instance.position.x = this.x = x
     this.instance.position.y = this.y = y
     this.instance.position.z = this.z = z
