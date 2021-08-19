@@ -11,11 +11,11 @@ class Human {
     this.obj.position.x = -15
     this.obj.position.y = 30
     this.obj.position.z = 0
-    const headRadius = 30 // 2.1 * 0.72
+    const headRadius = 2.1 * 0.72
 
     const texture1 = this.loader.load('/game/assets/images/head.png')
     texture1.minFilter = THREE.LinearFilter
-    this.head = new THREE.Mesh(new THREE.OctahedronGeometry(headRadius * 1.4, new THREE.MeshBasicMaterial({ map: texture1 })))
+    this.head = new THREE.Mesh(new THREE.OctahedronGeometry(headRadius * 1.4), new THREE.MeshBasicMaterial({ map: texture1 }))
     this.head.position.y = 7.56
     this.head.position.x = 0
     this.head.position.z = 0
