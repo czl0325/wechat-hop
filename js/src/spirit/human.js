@@ -1,4 +1,5 @@
 import { MeshPhongMaterial } from '../../libs/three'
+import { customAnimation } from '../../libs/animation'
 
 class Human {
   constructor () {
@@ -29,6 +30,16 @@ class Human {
     this.bottom = new THREE.Mesh(new THREE.CylinderGeometry(0.88 * headRadius, 1.27 * headRadius, 4.5 * headRadius, 20), new THREE.MeshBasicMaterial({ map: texture2 }))
     this.bottom.castShadow = true
     this.obj.add(this.bottom)
+  }
+
+  show() {
+    customAnimation.to(this.obj.position, {
+      x: -15, y: 6, z: 0
+    }, 2)
+  }
+
+  update() {
+    this.head.rotation.y += 0.03
   }
 }
 

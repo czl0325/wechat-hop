@@ -23,6 +23,9 @@ export default class GamePage {
   }
   render() {
     this.scene.render()
+    if (this.human.obj) {
+      this.human.update()
+    }
     requestAnimationFrame(this.render.bind(this))
   }
   show() {
@@ -42,5 +45,6 @@ export default class GamePage {
   }
   _addHuman() {
     this.scene.instance.add(this.human.obj)
+    this.human.show()
   }
 }

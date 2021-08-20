@@ -1,6 +1,6 @@
 const Tween = {
-  Linear: function Linear(t, b, c ,d) {
-    return c * t / d + b
+  Linear: function Linear(currentFrame, from, to ,allFrame) {
+    return to * currentFrame / allFrame + from
   }
 }
 
