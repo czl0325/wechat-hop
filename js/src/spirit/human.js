@@ -35,7 +35,7 @@ class Human {
   show() {
     customAnimation.to(this.obj.position, {
       x: -15, y: 6, z: 0
-    }, 2)
+    }, 2, { mode: 'Bounce.easeOut'})
   }
 
   update() {

@@ -8,7 +8,7 @@ const customAnimation = exports.customAnimation = {}
 customAnimation.to = function (origin, source, duration, options = {}) {
   duration *= 1000
   const delay = options.delay ?? 0
-  const ease = options.ease ?? 'Linear'
+  const ease = options.mode ?? 'Linear'
   for (let name in source) {
     (function () {
       setTimeout(TweenAnimation(origin[name], source[name], duration, ease, function (value) {
@@ -68,6 +68,19 @@ const TweenAnimation = exports.TweenAnimation = function TweenAnimation(from, to
   let startTime = Date.now()
   let lastTime = Date.now()
   let fps = 60
+
+  const arrTween = easing.split('.')
+  let fnGetValue = null
+  if (arrTween.length === 1) {
+    fnGetValue = tween[arrTween[0]]
+  } else if (arrTween.length === 2) {
+    fnGetValue = tween[arrTween[0]] && tween[arrTween[0]][arrTween[1]]
+  }
+  if (isFunction(fnGetValue) === false) {
+    console.error('没有找到名为' + easing + '的动画算法')
+    return
+  }
+
   const step = function () {
     const currentTime = Date.now()
     const interval = currentTime - lastTime
@@ -84,7 +97,7 @@ const TweenAnimation = exports.TweenAnimation = function TweenAnimation(from, to
       const _start = Math.ceil((currentTime - startTime) / FRAME)
       start = _start > start ? _start : start + 1
     }
-    const value = tween.Linear(start, from, to - from, during)
+    const value = fnGetValue(start, from, to - from, during)
     if (start < during) {
       callback && callback(value)
       requestAnimationFrame(step)
