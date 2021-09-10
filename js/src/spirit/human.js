@@ -1,8 +1,10 @@
-import { MeshPhongMaterial } from '../../libs/three'
 import { customAnimation } from '../../libs/animation'
+import blockConf from '../conf/block-conf.js'
 
 class Human {
   constructor () {
+    this.status = 'stop'
+    this.scale = 1
   }
 
   init () {
@@ -27,9 +29,9 @@ class Human {
 
     const texture2 = this.loader.load('/game/assets/images/bottom.png')
     texture2.minFilter = THREE.LinearFilter
-    this.bottom = new THREE.Mesh(new THREE.CylinderGeometry(0.88 * headRadius, 1.27 * headRadius, 4.5 * headRadius, 20), new THREE.MeshBasicMaterial({ map: texture2 }))
-    this.bottom.castShadow = true
-    this.obj.add(this.bottom)
+    this.body = new THREE.Mesh(new THREE.CylinderGeometry(0.88 * headRadius, 1.27 * headRadius, 4.5 * headRadius, 20), new THREE.MeshBasicMaterial({ map: texture2 }))
+    this.body.castShadow = true
+    this.obj.add(this.body)
   }
 
   show() {
@@ -40,6 +42,43 @@ class Human {
 
   update() {
     this.head.rotation.y += 0.03
+    if (this.status === 'shrink') {
+      this._shrink()
+    }
+  }
+  stop() {
+    this.status = 'stop'
+    this._reset()
+  }
+  _reset() {
+    this.scale = 1
+    this.body.scale.x = this.scale
+    this.body.scale.y = this.scale
+    this.body.scale.z = this.scale
+    this.head.position.y = 7.56
+    this.head.position.x = 0
+    this.head.position.z = 0
+    this.obj.position.x = -15
+    this.obj.position.y = 6
+    this.obj.position.z = 0
+  }
+  _shrink() {
+    const DELTA_SCALE = 0.005
+    const HORIZON_DELTA_SCALE = 0.007
+    const HEAD_DELTA = 0.03
+    const MIN_SCALE = 0.55
+    this.scale -= DELTA_SCALE
+    this.scale = Math.max(this.scale, MIN_SCALE)
+    if (this.scale <= MIN_SCALE) {
+      return
+    }
+    this.body.scale.y = this.scale
+    this.body.scale.x += HORIZON_DELTA_SCALE
+    this.body.scale.z += HORIZON_DELTA_SCALE
+    this.head.position.y -= HEAD_DELTA
+    // const bottleDeltaY = HEAD_DELTA / 2
+    // const deltaY = blockConf.height * HEAD_DELTA / 2
+    // this.obj.position.y -= (bottleDeltaY + deltaY * 2)
   }
 }
 

@@ -28,6 +28,9 @@ export default class GamePage {
     }
     requestAnimationFrame(this.render.bind(this))
   }
+  restart() {
+    this._bindTouchEvent()
+  }
   show() {
     this.visiable = true
   }
@@ -46,5 +49,22 @@ export default class GamePage {
   _addHuman() {
     this.scene.instance.add(this.human.obj)
     this.human.show()
+  }
+  _toucheStartEvent = () => {
+    console.log(this.human)
+    if (this.human.status === 'stop') {
+      this.human.status = 'shrink'
+    }
+  }
+  _toucheEndEvent = () => {
+    this.human.stop()
+  }
+  _bindTouchEvent() {
+    canvas.addEventListener('touchstart', this._toucheStartEvent)
+    canvas.addEventListener('touchend', this._toucheEndEvent)
+  }
+  _removeTouchEvent() {
+    canvas.removeEventListener('touchstart', this._toucheStartEvent)
+    canvas.removeEventListener('touchend', this._toucheEndEvent)
   }
 }
